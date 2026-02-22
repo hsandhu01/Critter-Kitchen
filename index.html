@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Critter Kitchen - A magical creature-cooking game for kids! Mix magical ingredients to create adorable creatures.">
+    <title>Critter Kitchen 🧪✨ — Magical Creature Creator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Ambient background particles -->
+    <div id="bg-particles"></div>
+
+    <!-- Header -->
+    <header id="game-header">
+        <div class="header-left">
+            <h1 class="logo">
+                <span class="logo-icon">🧪</span>
+                <span class="logo-text">Critter Kitchen</span>
+                <span class="logo-sparkle">✨</span>
+            </h1>
+        </div>
+        <div class="header-center">
+            <div id="recipe-slots" class="recipe-slots">
+                <div class="recipe-slot" data-slot="0">
+                    <span class="slot-placeholder">?</span>
+                </div>
+                <span class="recipe-plus">+</span>
+                <div class="recipe-slot" data-slot="1">
+                    <span class="slot-placeholder">?</span>
+                </div>
+                <span class="recipe-plus">+</span>
+                <div class="recipe-slot" data-slot="2">
+                    <span class="slot-placeholder">?</span>
+                </div>
+                <span class="recipe-equals">=</span>
+                <div class="recipe-result" id="recipe-result">
+                    <span class="result-placeholder">🐾</span>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <button id="bestiary-btn" class="bestiary-btn" aria-label="Open Bestiary">
+                <span class="bestiary-icon">📖</span>
+                <span class="bestiary-label">Bestiary</span>
+                <span id="bestiary-count" class="bestiary-count">0/20</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Game Area -->
+    <main id="game-area">
+        <!-- Ingredient Shelf (Left) -->
+        <aside id="ingredient-shelf" class="ingredient-shelf">
+            <h2 class="shelf-title">Ingredients</h2>
+            <div id="ingredient-list" class="ingredient-list">
+                <!-- Ingredients are generated dynamically -->
+            </div>
+            <div class="shelf-hint">
+                <p>Drag 3 ingredients<br>into the cauldron!</p>
+            </div>
+        </aside>
+
+        <!-- Cauldron Area (Center) -->
+        <div id="cauldron-area" class="cauldron-area">
+            <canvas id="game-canvas"></canvas>
+            <!-- Mix Button - appears when 3 ingredients added -->
+            <button id="mix-btn" class="mix-btn hidden">
+                <span class="mix-icon">🌀</span>
+                <span class="mix-text">MIX!</span>
+            </button>
+            <!-- Creature Display - appears after mixing -->
+            <div id="creature-reveal" class="creature-reveal hidden">
+                <canvas id="creature-canvas" width="200" height="200"></canvas>
+                <h3 id="creature-name" class="creature-name"></h3>
+                <div id="creature-rarity" class="creature-rarity"></div>
+                <p id="creature-desc" class="creature-desc"></p>
+                <button id="collect-btn" class="collect-btn">
+                    <span>✨ Collect! ✨</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bestiary Panel (Slide-out Right) -->
+    <div id="bestiary-panel" class="bestiary-panel">
+        <div class="bestiary-header">
+            <h2 class="bestiary-title">📖 Bestiary</h2>
+            <button id="bestiary-close" class="bestiary-close" aria-label="Close Bestiary">✕</button>
+        </div>
+        <div class="bestiary-stats">
+            <span id="bestiary-discovered">0</span> / <span id="bestiary-total">20</span> Discovered
+            <div class="bestiary-progress-bar">
+                <div id="bestiary-progress" class="bestiary-progress-fill"></div>
+            </div>
+        </div>
+        <div id="bestiary-grid" class="bestiary-grid">
+            <!-- Creature cards populated dynamically -->
+        </div>
+    </div>
+    <div id="bestiary-overlay" class="bestiary-overlay hidden"></div>
+
+    <!-- Creature Detail Modal -->
+    <div id="creature-modal" class="creature-modal hidden">
+        <div class="modal-content">
+            <button id="modal-close" class="modal-close" aria-label="Close">✕</button>
+            <canvas id="modal-creature-canvas" width="180" height="180"></canvas>
+            <h3 id="modal-creature-name" class="modal-creature-name"></h3>
+            <div id="modal-creature-rarity" class="modal-creature-rarity"></div>
+            <div id="modal-ingredients" class="modal-ingredients"></div>
+            <p id="modal-creature-desc" class="modal-creature-desc"></p>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

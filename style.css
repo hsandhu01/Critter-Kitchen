@@ -1,0 +1,1032 @@
+/* =============================================================
+   CRITTER KITCHEN — Magical Laboratory Theme
+   ============================================================= */
+
+/* -- CSS Custom Properties / Design Tokens -- */
+:root {
+    /* Core palette */
+    --bg-deep: #06131a;
+    --bg-lab: #091e28;
+    --bg-panel: rgba(8, 28, 40, 0.88);
+    --bg-glass: rgba(12, 45, 65, 0.55);
+    --bg-glass-hover: rgba(20, 65, 90, 0.7);
+
+    /* Neon accents */
+    --neon-purple: #00e5cc;
+    --neon-pink: #ff5a8a;
+    --neon-blue: #00c9ff;
+    --neon-green: #a8ff4a;
+    --neon-orange: #ff8c4a;
+    --neon-yellow: #ffe44a;
+
+    /* Ingredient colors */
+    --fire: #ff4a4a;
+    --moon: #c4b5fd;
+    --star: #ffd700;
+    --ocean: #4ac3ff;
+    --forest: #4aff91;
+    --thunder: #ffe44a;
+
+    /* UI */
+    --text-primary: #e6fbff;
+    --text-secondary: rgba(200, 240, 255, 0.6);
+    --text-glow: rgba(0, 229, 204, 0.6);
+    --border-glow: rgba(0, 229, 204, 0.3);
+    --shadow-neon: 0 0 20px rgba(0, 229, 204, 0.3), 0 0 60px rgba(0, 229, 204, 0.1);
+
+    /* Typography */
+    --font-display: 'Fredoka', 'Comic Sans MS', cursive;
+    --font-body: 'Outfit', 'Segoe UI', sans-serif;
+
+    /* Spacing */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+    --radius-xl: 30px;
+
+    /* Transitions */
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* -- Reset & Base -- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-body);
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+}
+
+body {
+    background:
+        radial-gradient(ellipse 80% 60% at 50% 110%, rgba(0, 180, 160, 0.2) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 50% 105%, rgba(255, 90, 138, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 20% 20%, rgba(0, 201, 255, 0.07) 0%, transparent 50%),
+        radial-gradient(circle at 80% 15%, rgba(168, 255, 74, 0.05) 0%, transparent 50%),
+        var(--bg-lab);
+}
+
+/* -- Background Particles -- */
+#bg-particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+#bg-particles::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow:
+        120px 80px 0 rgba(0, 229, 204, 0.4),
+        340px 150px 0 rgba(0, 201, 255, 0.3),
+        560px 60px 0 rgba(255, 90, 138, 0.4),
+        780px 200px 0 rgba(168, 255, 74, 0.3),
+        200px 300px 0 rgba(255, 212, 74, 0.4),
+        900px 100px 0 rgba(0, 229, 204, 0.3),
+        50px 180px 0 rgba(255, 90, 138, 0.4),
+        700px 350px 0 rgba(0, 201, 255, 0.3),
+        450px 250px 0 rgba(168, 255, 74, 0.5),
+        1000px 280px 0 rgba(255, 140, 74, 0.4),
+        150px 400px 0 rgba(255, 212, 74, 0.3),
+        850px 450px 0 rgba(0, 201, 255, 0.4),
+        300px 500px 0 rgba(255, 90, 138, 0.3),
+        600px 420px 0 rgba(0, 229, 204, 0.5),
+        1100px 380px 0 rgba(168, 255, 74, 0.3);
+    animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* -- Header -- */
+#game-header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 24px;
+    background: rgba(6, 19, 26, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-glow);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-shadow: 0 0 20px var(--text-glow);
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+    animation: wobble 2s ease-in-out infinite;
+}
+
+.logo-sparkle {
+    font-size: 1.2rem;
+    animation: sparkle-spin 3s linear infinite;
+}
+
+@keyframes wobble {
+
+    0%,
+    100% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+@keyframes sparkle-spin {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    25% {
+        transform: rotate(90deg) scale(1.2);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1);
+    }
+
+    75% {
+        transform: rotate(270deg) scale(1.2);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+/* Recipe Slots */
+.recipe-slots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.recipe-slot {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: var(--bg-glass);
+    border: 2px dashed rgba(0, 229, 204, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    transition: all 0.3s var(--ease-bounce);
+    position: relative;
+    overflow: hidden;
+}
+
+.recipe-slot.filled {
+    border-style: solid;
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 15px rgba(0, 229, 204, 0.3);
+    animation: slot-fill 0.4s var(--ease-bounce);
+}
+
+@keyframes slot-fill {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.slot-placeholder {
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+}
+
+.recipe-plus,
+.recipe-equals {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.recipe-result {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(0, 229, 204, 0.2), rgba(255, 90, 138, 0.2));
+    border: 2px solid rgba(0, 229, 204, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+}
+
+.result-placeholder {
+    opacity: 0.5;
+}
+
+/* Bestiary Button */
+.bestiary-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glow);
+    border-radius: var(--radius-xl);
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    backdrop-filter: blur(8px);
+}
+
+.bestiary-btn:hover {
+    background: var(--bg-glass-hover);
+    box-shadow: var(--shadow-neon);
+    transform: translateY(-2px);
+}
+
+.bestiary-icon {
+    font-size: 1.3rem;
+}
+
+.bestiary-count {
+    padding: 2px 10px;
+    background: rgba(0, 229, 204, 0.2);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+}
+
+/* -- Main Game Area -- */
+#game-area {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    height: calc(100vh - 70px);
+    overflow: hidden;
+}
+
+/* -- Ingredient Shelf -- */
+.ingredient-shelf {
+    width: 180px;
+    min-width: 180px;
+    padding: 18px 12px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid var(--border-glow);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+    z-index: 5;
+}
+
+.shelf-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    text-align: center;
+    color: var(--neon-purple);
+    text-shadow: 0 0 15px rgba(168, 255, 74, 0.5);
+    letter-spacing: 1px;
+}
+
+.ingredient-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.ingredient-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 8px;
+    background: var(--bg-glass);
+    border: 1px solid rgba(0, 229, 204, 0.15);
+    border-radius: var(--radius-md);
+    cursor: grab;
+    transition: all 0.3s var(--ease-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.ingredient-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 120%, var(--ingredient-color, rgba(0, 229, 204, 0.15)), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.ingredient-card:hover {
+    background: var(--bg-glass-hover);
+    border-color: var(--ingredient-color, var(--neon-purple));
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 20px var(--ingredient-glow, rgba(0, 229, 204, 0.2));
+}
+
+.ingredient-card:hover::before {
+    opacity: 1;
+}
+
+.ingredient-card:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+.ingredient-card.dragging {
+    opacity: 0.4;
+    transform: scale(0.95);
+}
+
+.ingredient-emoji {
+    font-size: 2rem;
+    z-index: 1;
+    filter: drop-shadow(0 0 8px var(--ingredient-glow, rgba(0, 229, 204, 0.4)));
+    transition: transform 0.3s var(--ease-bounce);
+}
+
+.ingredient-card:hover .ingredient-emoji {
+    transform: scale(1.15) rotate(-5deg);
+    animation: ingredient-wiggle 0.5s ease-in-out infinite;
+}
+
+@keyframes ingredient-wiggle {
+
+    0%,
+    100% {
+        transform: scale(1.15) rotate(-5deg);
+    }
+
+    50% {
+        transform: scale(1.15) rotate(5deg);
+    }
+}
+
+.ingredient-name {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    text-align: center;
+    z-index: 1;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.shelf-hint {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-family: var(--font-display);
+    animation: hint-pulse 2s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* -- Cauldron Area -- */
+.cauldron-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#game-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Mix Button */
+.mix-btn {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    padding: 16px 48px;
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-orange));
+    border: none;
+    border-radius: var(--radius-xl);
+    color: white;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 30px rgba(255, 90, 138, 0.5), 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s var(--ease-bounce);
+    animation: mix-glow 1.5s ease-in-out infinite alternate, mix-bounce 0.6s var(--ease-bounce) infinite alternate;
+    letter-spacing: 2px;
+}
+
+.mix-btn:hover {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 0 50px rgba(255, 90, 138, 0.7), 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes mix-glow {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 90, 138, 0.4), 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 0 45px rgba(255, 140, 74, 0.6), 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@keyframes mix-bounce {
+    0% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-6px);
+    }
+}
+
+.mix-icon {
+    font-size: 1.6rem;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Creature Reveal */
+.creature-reveal {
+    position: absolute;
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 30px 40px;
+    background: rgba(6, 20, 30, 0.94);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--neon-purple);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 0 60px rgba(0, 229, 204, 0.35), 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: reveal-in 0.6s var(--ease-bounce);
+    text-align: center;
+}
+
+@keyframes reveal-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(60px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+#creature-canvas {
+    border-radius: var(--radius-lg);
+    filter: drop-shadow(0 0 20px rgba(0, 229, 204, 0.4));
+}
+
+.creature-name {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.creature-rarity {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    padding: 4px 16px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+}
+
+.creature-rarity.common {
+    background: rgba(150, 150, 150, 0.3);
+    color: #ccc;
+}
+
+.creature-rarity.uncommon {
+    background: rgba(0, 201, 255, 0.2);
+    color: var(--neon-blue);
+}
+
+.creature-rarity.rare {
+    background: rgba(0, 229, 204, 0.2);
+    color: var(--neon-purple);
+}
+
+.creature-rarity.legendary {
+    background: linear-gradient(135deg, rgba(255, 212, 74, 0.3), rgba(255, 140, 74, 0.3));
+    color: var(--neon-yellow);
+    animation: legendary-glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes legendary-glow {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 212, 74, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 0 25px rgba(255, 212, 74, 0.6);
+    }
+}
+
+.creature-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    max-width: 250px;
+    line-height: 1.5;
+}
+
+.collect-btn {
+    padding: 12px 32px;
+    background: linear-gradient(135deg, var(--neon-green), #2ddd6f);
+    border: none;
+    border-radius: var(--radius-xl);
+    color: #0a2a10;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-bounce);
+    box-shadow: 0 0 20px rgba(74, 255, 145, 0.3);
+    letter-spacing: 1px;
+}
+
+.collect-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(74, 255, 145, 0.5);
+}
+
+/* -- Bestiary Panel -- */
+.bestiary-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 90;
+    transition: opacity 0.3s;
+}
+
+.bestiary-panel {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 400px;
+    height: 100vh;
+    background: rgba(6, 18, 26, 0.97);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-left: 1px solid var(--border-glow);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s var(--ease-smooth);
+    box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.bestiary-panel.open {
+    right: 0;
+}
+
+.bestiary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-glow);
+}
+
+.bestiary-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    text-shadow: 0 0 15px var(--text-glow);
+}
+
+.bestiary-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glow);
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bestiary-close:hover {
+    background: rgba(255, 74, 74, 0.3);
+    border-color: rgba(255, 74, 74, 0.5);
+}
+
+.bestiary-stats {
+    padding: 16px 24px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.bestiary-stats span {
+    color: var(--neon-blue);
+    font-weight: 700;
+}
+
+.bestiary-progress-bar {
+    margin-top: 10px;
+    height: 6px;
+    background: var(--bg-glass);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.bestiary-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+    border-radius: 3px;
+    transition: width 0.5s var(--ease-smooth);
+    width: 0%;
+}
+
+.bestiary-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    align-content: start;
+}
+
+.bestiary-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.bestiary-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.bestiary-grid::-webkit-scrollbar-thumb {
+    background: rgba(0, 229, 204, 0.3);
+    border-radius: 3px;
+}
+
+.bestiary-card {
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    background: var(--bg-glass);
+    border: 1px solid rgba(0, 229, 204, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    padding: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bestiary-card:hover {
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 20px rgba(0, 229, 204, 0.3);
+    transform: translateY(-3px);
+}
+
+.bestiary-card.undiscovered {
+    cursor: default;
+    opacity: 0.4;
+}
+
+.bestiary-card.undiscovered:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: rgba(0, 229, 204, 0.15);
+}
+
+.bestiary-card canvas {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-sm);
+}
+
+.bestiary-card-name {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    text-align: center;
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.bestiary-card-silhouette {
+    font-size: 2.2rem;
+    opacity: 0.3;
+}
+
+/* -- Creature Detail Modal -- */
+.creature-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background: rgba(6, 18, 28, 0.96);
+    border: 2px solid var(--neon-purple);
+    border-radius: var(--radius-xl);
+    padding: 30px;
+    max-width: 360px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    box-shadow: 0 0 60px rgba(0, 229, 204, 0.3);
+    animation: modal-in 0.4s var(--ease-bounce);
+}
+
+@keyframes modal-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glow);
+    color: var(--text-primary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: rgba(255, 74, 74, 0.3);
+}
+
+#modal-creature-canvas {
+    border-radius: var(--radius-lg);
+    filter: drop-shadow(0 0 15px rgba(0, 229, 204, 0.3));
+}
+
+.modal-creature-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.modal-creature-rarity {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    padding: 4px 14px;
+    border-radius: 16px;
+}
+
+.modal-ingredients {
+    display: flex;
+    gap: 8px;
+    font-size: 1.5rem;
+}
+
+.modal-ingredient-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-glass);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    border: 1px solid var(--border-glow);
+}
+
+.modal-creature-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* -- Drag Ghost -- */
+.drag-ghost {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1000;
+    font-size: 3rem;
+    filter: drop-shadow(0 0 15px var(--ingredient-glow, rgba(0, 229, 204, 0.6)));
+    transition: transform 0.1s;
+    animation: ghost-float 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes ghost-float {
+    0% {
+        transform: translate(-50%, -50%) scale(1) rotate(-5deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+    }
+}
+
+/* -- Utility -- */
+.hidden {
+    display: none !important;
+}
+
+/* Cauldron drop zone highlight */
+.cauldron-area.drop-hover::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    bottom: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: 3px dashed var(--neon-purple);
+    box-shadow: 0 0 30px rgba(0, 229, 204, 0.3);
+    animation: drop-pulse 0.8s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 5;
+}
+
+@keyframes drop-pulse {
+    0% {
+        opacity: 0.4;
+        transform: translateX(-50%) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.05);
+    }
+}
+
+/* -- Responsive -- */
+@media (max-width: 768px) {
+    .ingredient-shelf {
+        width: 120px;
+        min-width: 120px;
+        padding: 10px 6px;
+    }
+
+    .ingredient-card {
+        padding: 10px 4px;
+    }
+
+    .ingredient-emoji {
+        font-size: 1.5rem;
+    }
+
+    .ingredient-name {
+        font-size: 0.6rem;
+    }
+
+    .logo-text {
+        font-size: 1.1rem;
+    }
+
+    .recipe-slots {
+        gap: 4px;
+    }
+
+    .recipe-slot {
+        width: 36px;
+        height: 36px;
+    }
+
+    .bestiary-label {
+        display: none;
+    }
+
+    .bestiary-panel {
+        width: 100%;
+        right: -100%;
+    }
+
+    .mix-btn {
+        padding: 12px 32px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-center {
+        display: none;
+    }
+
+    .ingredient-shelf {
+        width: 80px;
+        min-width: 80px;
+    }
+}
