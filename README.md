@@ -77,4 +77,4 @@ MIT License — feel free to use and modify!
 
 ---
 
-Built with ✨ by [SandhuSoftware](https://sandhusoftware.com)
+Built by [SandhuSoftware](https://sandhusoftware.com)
